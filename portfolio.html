@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Alex Rivera — Cloud & DevOps Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #050810;
+    --surface: #0b1120;
+    --card: #0f1a2e;
+    --accent: #00f5c4;
+    --accent2: #ff4d6d;
+    --accent3: #7b61ff;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --border: rgba(0,245,196,0.15);
+    --glow: 0 0 20px rgba(0,245,196,0.3);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,245,196,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,245,196,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Noise overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(12px);
+    background: rgba(5,8,16,0.7);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    color: var(--accent);
+    letter-spacing: 3px;
+    text-shadow: var(--glow);
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ─── SECTIONS ─── */
+  section { position: relative; z-index: 1; }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-blob {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    animation: pulse 8s ease-in-out infinite;
+  }
+  .blob1 { background: rgba(0,245,196,0.12); top: -100px; right: -100px; }
+  .blob2 { background: rgba(123,97,255,0.1); bottom: -200px; left: -200px; animation-delay: 4s; }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; }
+  }
+
+  .hero-content { max-width: 900px; }
+  .hero-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .hero-label::before {
+    content: '';
+    display: inline-block;
+    width: 32px; height: 1px;
+    background: var(--accent);
+  }
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 10vw, 9rem);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+  .hero-name span { color: var(--accent); }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2.8rem);
+    color: var(--muted);
+    letter-spacing: 4px;
+    margin-bottom: 2rem;
+  }
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 3rem;
+  }
+  .hero-ctas { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent);
+    color: #050810;
+    padding: 0.9rem 2.2rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+  .btn-primary:hover { background: #00ffce; box-shadow: 0 0 30px rgba(0,245,196,0.5); transform: translateY(-2px); }
+  .btn-outline {
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.9rem 2.2rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    background: transparent;
+    cursor: pointer;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-stats {
+    position: absolute;
+    right: 4rem;
+    bottom: 4rem;
+    display: flex;
+    gap: 3rem;
+  }
+  .stat { text-align: right; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    color: var(--accent);
+    line-height: 1;
+    text-shadow: var(--glow);
+  }
+  .stat-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ─── ABOUT ─── */
+  #about {
+    padding: 8rem 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .section-label::before {
+    content: '//';
+    opacity: 0.4;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    line-height: 1;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+  }
+  .about-text {
+    color: var(--muted);
+    line-height: 1.9;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+  }
+  .about-visual {
+    position: relative;
+  }
+  .about-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    line-height: 1.8;
+    color: var(--muted);
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+    position: relative;
+  }
+  .about-card::before {
+    content: '$ whoami';
+    display: block;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+  }
+  .about-card .line { margin-bottom: 0.4rem; }
+  .about-card .line .key { color: var(--accent3); }
+  .about-card .line .val { color: #e2e8f0; }
+  .terminal-cursor {
+    display: inline-block;
+    width: 8px; height: 14px;
+    background: var(--accent);
+    animation: blink 1s step-end infinite;
+    vertical-align: middle;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  /* ─── SKILLS ─── */
+  #skills {
+    padding: 8rem 3rem;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .skills-inner { max-width: 1200px; margin: 0 auto; }
+  .skills-header { text-align: center; margin-bottom: 4rem; }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .skill-category {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    transition: border-color 0.3s, transform 0.3s;
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
+  }
+  .skill-category:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: var(--glow);
+  }
+  .skill-cat-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag {
+    background: rgba(0,245,196,0.07);
+    border: 1px solid rgba(0,245,196,0.2);
+    color: var(--text);
+    font-size: 0.78rem;
+    padding: 0.35rem 0.8rem;
+    font-family: 'Space Mono', monospace;
+    transition: all 0.2s;
+  }
+  .skill-tag:hover {
+    background: rgba(0,245,196,0.15);
+    color: var(--accent);
+  }
+
+  /* ─── PROJECTS ─── */
+  #projects { padding: 8rem 3rem; }
+  .projects-inner { max-width: 1200px; margin: 0 auto; }
+  .projects-header { margin-bottom: 4rem; }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 1.5rem;
+  }
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent3));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+  .project-card:hover { border-color: rgba(0,245,196,0.4); transform: translateY(-6px); }
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    color: rgba(0,245,196,0.08);
+    position: absolute;
+    top: 1rem; right: 1.5rem;
+    line-height: 1;
+  }
+  .project-type {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .project-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+  }
+  .project-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+  .project-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    padding: 0.2rem 0.6rem;
+    background: rgba(123,97,255,0.12);
+    border: 1px solid rgba(123,97,255,0.3);
+    color: #a89dff;
+    letter-spacing: 1px;
+  }
+  .project-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: gap 0.2s;
+  }
+  .project-link:hover { gap: 0.8rem; }
+
+  /* ─── RESUME ─── */
+  #resume {
+    padding: 8rem 3rem;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .resume-inner { max-width: 900px; margin: 0 auto; }
+  .resume-header { margin-bottom: 4rem; }
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg, var(--accent), var(--accent3), transparent);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+    padding-left: 2rem;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2.38rem; top: 0.4rem;
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--accent);
+  }
+  .timeline-period {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .timeline-role {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    margin-bottom: 0.3rem;
+  }
+  .timeline-company {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 0.8rem;
+    font-weight: 300;
+  }
+  .timeline-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+  .resume-download {
+    margin-top: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  .section-divider {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 4px;
+    color: var(--muted);
+    margin: 3rem 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ─── CONTACT ─── */
+  #contact { padding: 8rem 3rem; }
+  .contact-inner { max-width: 700px; margin: 0 auto; }
+  .contact-header { text-align: center; margin-bottom: 4rem; }
+  .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  input, textarea {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 1rem 1.2rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+  }
+  input:focus, textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 16px rgba(0,245,196,0.1);
+  }
+  textarea { resize: vertical; min-height: 140px; }
+  .form-submit { margin-top: 0.5rem; }
+  .btn-submit {
+    width: 100%;
+    background: var(--accent);
+    color: #050810;
+    padding: 1rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+  .btn-submit:hover {
+    background: #00ffce;
+    box-shadow: 0 0 30px rgba(0,245,196,0.4);
+  }
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+  }
+  .contact-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s;
+    padding-bottom: 2px;
+  }
+  .contact-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    position: relative;
+    z-index: 1;
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--surface);
+  }
+  .footer-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 2px;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    color: var(--accent);
+    letter-spacing: 3px;
+    text-shadow: var(--glow);
+  }
+
+  /* ─── SCROLL ANIMATIONS ─── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1rem; }
+    #hero { padding: 7rem 1.5rem 3rem; }
+    .hero-stats { position: static; margin-top: 3rem; justify-content: flex-start; }
+    #about { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 1.5rem; }
+    #skills, #projects, #resume, #contact { padding: 5rem 1.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">AR</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#resume">Resume</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-blob blob1"></div>
+  <div class="hero-blob blob2"></div>
+  <div class="hero-content">
+    <div class="hero-label">Available for hire</div>
+    <h1 class="hero-name">Alex<br><span>Rivera</span></h1>
+    <div class="hero-title">Cloud & DevOps Engineer</div>
+    <p class="hero-desc">I architect resilient cloud infrastructure, automate everything that shouldn't be manual, and ship software faster without breaking things in production.</p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-outline">Let's Connect</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">5+</div>
+      <div class="stat-label">Years Exp.</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">40+</div>
+      <div class="stat-label">Projects</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">99.9</div>
+      <div class="stat-label">Uptime %</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="fade-up">
+    <div class="section-label">About Me</div>
+    <h2 class="section-title">Building the infrastructure that never sleeps</h2>
+    <p class="about-text">I'm a Cloud & DevOps Engineer with a passion for scalable systems, CI/CD pipelines, and cloud-native architecture. I've helped teams move from slow, manual deployments to fully automated, zero-downtime release pipelines.</p>
+    <p class="about-text">When I'm not crafting Terraform modules or debugging Kubernetes clusters, I'm learning new tools and sharing knowledge with the community.</p>
+    <a href="#contact" class="btn-primary" style="display:inline-block; margin-top:1rem;">Get in touch →</a>
+  </div>
+  <div class="about-visual fade-up">
+    <div class="about-card">
+      <div class="line"><span class="key">name</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="val">"Alex Rivera"</span></div>
+      <div class="line"><span class="key">role</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="val">"Cloud & DevOps Eng."</span></div>
+      <div class="line"><span class="key">location</span>:&nbsp;&nbsp; <span class="val">"Remote / Anywhere"</span></div>
+      <div class="line"><span class="key">status</span>:&nbsp;&nbsp;&nbsp;&nbsp; <span class="val" style="color:#00f5c4;">open_to_work</span></div>
+      <div class="line"><span class="key">clouds</span>:&nbsp;&nbsp;&nbsp;&nbsp; <span class="val">["AWS", "GCP", "Azure"]</span></div>
+      <div class="line"><span class="key">certs</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="val">["CKA", "AWS-SAA"]</span></div>
+      <div class="line"><span class="key">coffee</span>:&nbsp;&nbsp;&nbsp;&nbsp; <span class="val">true</span></div>
+      <div class="line">&nbsp;</div>
+      <div class="line"><span class="terminal-cursor"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="skills-inner">
+    <div class="skills-header fade-up">
+      <div class="section-label" style="justify-content:center;">Technical Skills</div>
+      <h2 class="section-title">My Toolbox</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-category fade-up">
+        <div class="skill-cat-title">☁ Cloud Platforms</div>
+        <div class="skill-tags">
+          <span class="skill-tag">AWS</span>
+          <span class="skill-tag">Google Cloud</span>
+          <span class="skill-tag">Azure</span>
+          <span class="skill-tag">DigitalOcean</span>
+          <span class="skill-tag">Cloudflare</span>
+        </div>
+      </div>
+      <div class="skill-category fade-up">
+        <div class="skill-cat-title">⚙ IaC & Automation</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Terraform</span>
+          <span class="skill-tag">Ansible</span>
+          <span class="skill-tag">Pulumi</span>
+          <span class="skill-tag">CloudFormation</span>
+          <span class="skill-tag">Packer</span>
+        </div>
+      </div>
+      <div class="skill-category fade-up">
+        <div class="skill-cat-title">🐳 Containers & Orchestration</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Kubernetes</span>
+          <span class="skill-tag">Docker</span>
+          <span class="skill-tag">Helm</span>
+          <span class="skill-tag">Istio</span>
+          <span class="skill-tag">EKS / GKE</span>
+        </div>
+      </div>
+      <div class="skill-category fade-up">
+        <div class="skill-cat-title">🔁 CI/CD & GitOps</div>
+        <div class="skill-tags">
+          <span class="skill-tag">GitHub Actions</span>
+          <span class="skill-tag">Jenkins</span>
+          <span class="skill-tag">ArgoCD</span>
+          <span class="skill-tag">GitLab CI</span>
+          <span class="skill-tag">CircleCI</span>
+        </div>
+      </div>
+      <div class="skill-category fade-up">
+        <div class="skill-cat-title">📊 Monitoring & Observability</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Prometheus</span>
+          <span class="skill-tag">Grafana</span>
+          <span class="skill-tag">Datadog</span>
+          <span class="skill-tag">ELK Stack</span>
+          <span class="skill-tag">PagerDuty</span>
+        </div>
+      </div>
+      <div class="skill-category fade-up">
+        <div class="skill-cat-title">💻 Scripting & Dev</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Bash</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Go</span>
+          <span class="skill-tag">YAML / JSON</span>
+          <span class="skill-tag">Linux</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="projects-inner">
+    <div class="projects-header fade-up">
+      <div class="section-label">Featured Work</div>
+      <h2 class="section-title">Projects That Shipped</h2>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card fade-up">
+        <div class="project-number">01</div>
+        <div class="project-type">Infrastructure</div>
+        <div class="project-name">Multi-Region AWS Platform</div>
+        <p class="project-desc">Designed and deployed a multi-region, active-active AWS infrastructure serving 2M+ daily users with 99.99% uptime using Terraform and auto-scaling groups.</p>
+        <div class="project-tags">
+          <span class="project-tag">Terraform</span>
+          <span class="project-tag">AWS</span>
+          <span class="project-tag">Route53</span>
+          <span class="project-tag">RDS</span>
+        </div>
+        <a href="#" class="project-link">View Project →</a>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-number">02</div>
+        <div class="project-type">CI/CD Pipeline</div>
+        <div class="project-name">Zero-Downtime Deploy System</div>
+        <p class="project-desc">Built a full GitOps pipeline with ArgoCD and GitHub Actions, reducing deployment time from 45 minutes to under 4 minutes with automated rollback on failure.</p>
+        <div class="project-tags">
+          <span class="project-tag">ArgoCD</span>
+          <span class="project-tag">Kubernetes</span>
+          <span class="project-tag">GitHub Actions</span>
+        </div>
+        <a href="#" class="project-link">View Project →</a>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-number">03</div>
+        <div class="project-type">Observability</div>
+        <div class="project-name">Full-Stack Monitoring Suite</div>
+        <p class="project-desc">Implemented end-to-end observability stack with Prometheus, Grafana, and custom alerting rules, cutting mean time to resolution (MTTR) by 60%.</p>
+        <div class="project-tags">
+          <span class="project-tag">Prometheus</span>
+          <span class="project-tag">Grafana</span>
+          <span class="project-tag">Loki</span>
+          <span class="project-tag">Alertmanager</span>
+        </div>
+        <a href="#" class="project-link">View Project →</a>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-number">04</div>
+        <div class="project-type">Security & Compliance</div>
+        <div class="project-name">Cloud Security Hardening</div>
+        <p class="project-desc">Automated security baseline compliance across 200+ AWS accounts using Config Rules, Security Hub, and custom Lambda functions for real-time remediation.</p>
+        <div class="project-tags">
+          <span class="project-tag">AWS Config</span>
+          <span class="project-tag">Lambda</span>
+          <span class="project-tag">IAM</span>
+          <span class="project-tag">Python</span>
+        </div>
+        <a href="#" class="project-link">View Project →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- RESUME -->
+<section id="resume">
+  <div class="resume-inner">
+    <div class="resume-header fade-up">
+      <div class="section-label">Experience</div>
+      <h2 class="section-title">Career Timeline</h2>
+    </div>
+
+    <div class="section-divider">Experience</div>
+    <div class="timeline">
+      <div class="timeline-item fade-up">
+        <div class="timeline-period">2022 — Present</div>
+        <div class="timeline-role">Senior DevOps Engineer</div>
+        <div class="timeline-company">Acme Cloud Corp — Remote</div>
+        <div class="timeline-desc">Lead cloud infrastructure for a SaaS platform serving 500K+ users. Architected multi-region Kubernetes clusters, automated DR procedures, and mentored a team of 4 engineers.</div>
+      </div>
+      <div class="timeline-item fade-up">
+        <div class="timeline-period">2020 — 2022</div>
+        <div class="timeline-role">Cloud & DevOps Engineer</div>
+        <div class="timeline-company">TechStartup Inc — Austin, TX</div>
+        <div class="timeline-desc">Migrated legacy monolith to microservices on AWS EKS. Built end-to-end CI/CD pipelines cutting deployment lead time by 70%. Implemented Datadog observability platform.</div>
+      </div>
+      <div class="timeline-item fade-up">
+        <div class="timeline-period">2018 — 2020</div>
+        <div class="timeline-role">Systems Administrator</div>
+        <div class="timeline-company">Enterprise Solutions Ltd — Dallas, TX</div>
+        <div class="timeline-desc">Managed on-prem and hybrid cloud environments. Led cloud migration initiative, moving 60% of workloads to AWS. Automated routine ops tasks using Ansible and Python.</div>
+      </div>
+    </div>
+
+    <div class="section-divider">Education & Certs</div>
+    <div class="timeline">
+      <div class="timeline-item fade-up">
+        <div class="timeline-period">2018</div>
+        <div class="timeline-role">B.S. Computer Science</div>
+        <div class="timeline-company">University of Texas at Austin</div>
+      </div>
+      <div class="timeline-item fade-up">
+        <div class="timeline-period">2023</div>
+        <div class="timeline-role">Certified Kubernetes Administrator (CKA)</div>
+        <div class="timeline-company">Cloud Native Computing Foundation</div>
+      </div>
+      <div class="timeline-item fade-up">
+        <div class="timeline-period">2022</div>
+        <div class="timeline-role">AWS Solutions Architect — Associate</div>
+        <div class="timeline-company">Amazon Web Services</div>
+      </div>
+    </div>
+
+    <div class="resume-download fade-up">
+      <a href="#" class="btn-primary">Download Full Resume</a>
+      <span style="font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--muted);">PDF — Updated March 2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-header fade-up">
+      <div class="section-label" style="justify-content:center;">Contact</div>
+      <h2 class="section-title" style="text-align:center;">Let's Build Something Together</h2>
+      <p style="color:var(--muted);font-size:0.95rem;margin-top:1rem;font-weight:300;line-height:1.7;">Have an infrastructure challenge or an open role? I'd love to hear from you.</p>
+    </div>
+    <form class="contact-form fade-up" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" placeholder="Jane Smith" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="jane@company.com" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" placeholder="Job opportunity / Project inquiry" />
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" placeholder="Tell me about your project or role..." required></textarea>
+      </div>
+      <div class="form-submit">
+        <button type="submit" class="btn-submit" id="submitBtn">Send Message →</button>
+      </div>
+    </form>
+    <div class="contact-links fade-up">
+      <a href="https://github.com" class="contact-link">GitHub</a>
+      <a href="https://linkedin.com" class="contact-link">LinkedIn</a>
+      <a href="mailto:alex@example.com" class="contact-link">alex@example.com</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-text">© 2026 Alex Rivera. All systems operational.</div>
+  <div class="footer-logo">AR</div>
+  <div class="footer-text">Built with precision & caffeine.</div>
+</footer>
+
+<script>
+  // Scroll fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Contact form handler
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = 'Message Sent ✓';
+    btn.style.background = '#00ffce';
+    btn.style.boxShadow = '0 0 30px rgba(0,245,196,0.5)';
+    setTimeout(() => {
+      btn.textContent = 'Send Message →';
+      btn.style.background = '';
+      btn.style.boxShadow = '';
+      e.target.reset();
+    }, 3000);
+  }
+</script>
+</body>
+</html>

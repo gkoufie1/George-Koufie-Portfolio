@@ -1,0 +1,21 @@
+{
+  "name": "George Koufie — Cloud & DevOps Engineer",
+  "short_name": "George Koufie",
+  "description": "Cloud & DevOps Engineer specializing in AWS, Azure, Kubernetes, and CI/CD automation.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050810",
+  "theme_color": "#050810",
+  "icons": [
+    {
+      "src": "favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
