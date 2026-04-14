@@ -1,0 +1,103 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  IMAGE_NAME: george-koufie-portfolio
+  CONTAINER_NAME: portfolio
+
+jobs:
+
+  # ── Job 1: SonarCloud Scan & Quality Gate ─────────────────────
+  sonarcloud:
+    name: SonarCloud Scan & Quality Gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Required for SonarCloud blame data
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=george-koufie-portfolio
+            -Dsonar.organization=${{ secrets.SONAR_ORG }}
+            -Dsonar.sources=.
+            -Dsonar.exclusions=**/node_modules/**,**/assets/fonts/**,resume/**,scripts/**
+            -Dsonar.inclusions=**/*.html,**/*.css,**/*.js
+
+  # ── Job 2: Build & Deploy ──────────────────────────────────────
+  build-and-deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    needs: sonarcloud
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Docker Image
+        run: |
+          docker build -t $IMAGE_NAME:${{ github.run_number }} .
+          docker tag $IMAGE_NAME:${{ github.run_number }} $IMAGE_NAME:latest
+          echo "Image built: $IMAGE_NAME:${{ github.run_number }}"
+
+      - name: Deploy to EC2
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.PORTFOLIO_SSH_KEY }}
+          SERVER: ${{ secrets.PORTFOLIO_SERVER_IP }}
+        run: |
+          echo "$SSH_PRIVATE_KEY" > /tmp/deploy_key.pem
+          chmod 600 /tmp/deploy_key.pem
+
+          docker save $IMAGE_NAME:latest | gzip > portfolio-image.tar.gz
+
+          scp -i /tmp/deploy_key.pem \
+              -o StrictHostKeyChecking=no \
+              portfolio-image.tar.gz \
+              ubuntu@$SERVER:~/portfolio-image.tar.gz
+
+          ssh -i /tmp/deploy_key.pem \
+              -o StrictHostKeyChecking=no \
+              ubuntu@$SERVER '
+                docker load < ~/portfolio-image.tar.gz
+                docker rm -f portfolio 2>/dev/null || true
+                docker run -d \
+                    -p 80:80 \
+                    --name portfolio \
+                    --restart always \
+                    george-koufie-portfolio:latest
+                rm -f ~/portfolio-image.tar.gz
+                echo "Container running:"
+                docker ps | grep portfolio
+              '
+
+      - name: Cleanup sensitive files
+        if: always()
+        run: rm -f portfolio-image.tar.gz /tmp/deploy_key.pem
+
+      - name: Health Check
+        env:
+          SERVER: ${{ secrets.PORTFOLIO_SERVER_IP }}
+        run: |
+          for i in $(seq 1 10); do
+            HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://$SERVER)
+            echo "Attempt $i — HTTP Status: $HTTP_STATUS"
+            if [ "$HTTP_STATUS" = "200" ]; then
+              echo "Health check PASSED"
+              exit 0
+            fi
+            sleep 3
+          done
+          echo "Health check FAILED after 10 attempts"
+          exit 1
