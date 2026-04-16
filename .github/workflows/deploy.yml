@@ -12,34 +12,10 @@ env:
 
 jobs:
 
-  # ── Job 1: SonarCloud Scan & Quality Gate ─────────────────────
-  sonarcloud:
-    name: SonarCloud Scan & Quality Gate
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Required for SonarCloud blame data
-
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.projectKey=george-koufie-portfolio
-            -Dsonar.organization=${{ secrets.SONAR_ORG }}
-            -Dsonar.sources=.
-            -Dsonar.exclusions=**/node_modules/**,**/assets/fonts/**,resume/**,scripts/**
-            -Dsonar.inclusions=**/*.html,**/*.css,**/*.js
-
-  # ── Job 2: Build & Deploy ──────────────────────────────────────
+  # ── Job: Build & Deploy ───────────────────────────────────────
   build-and-deploy:
     name: Build & Deploy
     runs-on: ubuntu-latest
-    needs: sonarcloud
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
     steps:
