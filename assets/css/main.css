@@ -1,15 +1,15 @@
 /* ─── CSS CUSTOM PROPERTIES ─── */
 :root {
-  --bg:      #050810;
-  --surface: #0b1120;
-  --card:    #0f1a2e;
-  --accent:  #00f5c4;
-  --accent2: #ff4d6d;
-  --accent3: #7b61ff;
-  --text:    #e2e8f0;
-  --muted:   #64748b;
-  --border:  rgba(0, 245, 196, 0.15);
-  --glow:    0 0 20px rgba(0, 245, 196, 0.3);
+  --bg:      #f0f4f8;
+  --surface: #e2eaf2;
+  --card:    #ffffff;
+  --accent:  #00a87a;
+  --accent2: #e03355;
+  --accent3: #5b3fd4;
+  --text:    #0f172a;
+  --muted:   #475569;
+  --border:  rgba(0, 168, 122, 0.25);
+  --glow:    0 0 20px rgba(0, 168, 122, 0.25);
 }
 
 /* ─── RESET ─── */
@@ -34,8 +34,8 @@ body::before {
   position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(rgba(0, 245, 196, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 245, 196, 0.04) 1px, transparent 1px);
+    linear-gradient(rgba(0, 168, 122, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 168, 122, 0.1) 1px, transparent 1px);
   background-size: 40px 40px;
   pointer-events: none;
   z-index: 0;
@@ -62,7 +62,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   backdrop-filter: blur(12px);
-  background: rgba(5, 8, 16, 0.7);
+  background: rgba(240, 244, 248, 0.85);
   border-bottom: 1px solid var(--border);
 }
 
@@ -437,9 +437,9 @@ section { position: relative; z-index: 1; }
   font-family: 'Space Mono', monospace;
   font-size: 0.65rem;
   padding: 0.2rem 0.6rem;
-  background: rgba(123, 97, 255, 0.12);
-  border: 1px solid rgba(123, 97, 255, 0.3);
-  color: #a89dff;
+  background: rgba(91, 63, 212, 0.1);
+  border: 1px solid rgba(91, 63, 212, 0.35);
+  color: var(--accent3);
   letter-spacing: 1px;
 }
 
