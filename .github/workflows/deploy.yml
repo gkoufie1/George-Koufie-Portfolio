@@ -28,6 +28,18 @@ jobs:
           docker tag $IMAGE_NAME:${{ github.run_number }} $IMAGE_NAME:latest
           echo "Image built: $IMAGE_NAME:${{ github.run_number }}"
 
+      - name: Verify EC2 reachability
+        env:
+          SERVER: ${{ secrets.PORTFOLIO_SERVER_IP }}
+        run: |
+          echo "Checking connectivity to $SERVER:22..."
+          if ! nc -zw 5 $SERVER 22; then
+            echo "ERROR: Cannot reach $SERVER on port 22."
+            echo "Check: 1) EC2 instance is running  2) Security Group allows port 22  3) PORTFOLIO_SERVER_IP secret is correct"
+            exit 1
+          fi
+          echo "Port 22 is reachable."
+
       - name: Deploy to EC2
         env:
           SSH_PRIVATE_KEY: ${{ secrets.PORTFOLIO_SSH_KEY }}
