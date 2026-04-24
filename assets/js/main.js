@@ -10,6 +10,8 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
 // ─── CONTACT FORM ───
+document.getElementById('contact-form').addEventListener('submit', handleSubmit);
+
 async function handleSubmit(e) {
   e.preventDefault();
   const btn = document.getElementById('submitBtn');

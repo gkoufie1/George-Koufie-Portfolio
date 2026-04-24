@@ -1,5 +1,5 @@
-# Stage 1: Build stage (copy files)
-FROM nginx:1.27-alpine
+# Single-stage build: copy static files into nginx
+FROM nginx:1.29-alpine
 
 # Remove default NGINX static content
 RUN rm -rf /usr/share/nginx/html/*
