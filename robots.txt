@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://georgekoufie.dev/sitemap.xml
+Sitemap: https://georgekoufie.online/sitemap.xml

@@ -2,7 +2,7 @@
 
 Personal portfolio website for **George Koufie**, Cloud Infrastructure Engineer. Built with plain HTML/CSS/JS and deployed to AWS Amplify Hosting via Git-based CI/CD (auto-builds on every push to `main`). Docker/nginx are included for local preview and mirror the production security headers.
 
-**Live site:** [georgekoufie.dev](https://georgekoufie.dev)
+**Live site:** [georgekoufie.online](https://georgekoufie.online)
 
 ---
 
@@ -15,7 +15,7 @@ Personal portfolio website for **George Koufie**, Cloud Infrastructure Engineer.
 | Containerization (local preview) | Docker |
 | CI/CD | AWS Amplify Hosting (Git-based) + GitHub Actions (PR validation) |
 | Hosting | AWS Amplify Hosting |
-| DNS | Custom domain — georgekoufie.dev |
+| DNS | Custom domain — georgekoufie.online |
 | Contact Form | Formspree |
 | Fonts | Google Fonts (Space Mono, Bebas Neue, Inter) |
 
@@ -68,7 +68,7 @@ Push to main
     │    Apply headers (customHttp.yml) → publish to CDN
     │        │
     │        ▼
-    │    Live at georgekoufie.dev
+    │    Live at georgekoufie.online
     │
     └──▶ GitHub Actions: docker build + nginx -t   (PR/local sanity check only)
 ```
@@ -80,7 +80,7 @@ No GitHub Actions secrets are required for deployment.
 1. AWS Console → Amplify → **Create app** → Host a web app → GitHub → authorize AWS Amplify's GitHub App → select this repo and the `main` branch.
 2. Amplify auto-detects `amplify.yml`; accept the default build settings and deploy.
 3. App settings → **Custom headers** → point it at `customHttp.yml` (or paste its contents) so the security headers ship in production.
-4. App settings → **Domain management** → add `georgekoufie.dev`, then update your DNS with the CNAME/ALIAS records Amplify provides.
+4. App settings → **Domain management** → add `georgekoufie.online`, then update your DNS with the CNAME/ALIAS records Amplify provides.
 5. Every subsequent push to `main` deploys automatically — no further console steps needed.
 
 ---
@@ -150,7 +150,7 @@ AWS Amplify Hosting (Git-connected app)
         ├── customHttp.yml    → security headers + cache-control
         └── Managed CDN (CloudFront under the hood)
                 │
-                └── georgekoufie.dev
+                └── georgekoufie.online
 ```
 
 Cost: AWS Amplify Hosting's free tier (1,000 build minutes/month, 15 GB served/month, 5 GB stored) comfortably covers a low-traffic personal portfolio — effectively $0/month.
