@@ -1,6 +1,6 @@
 # George Koufie — Portfolio
 
-Personal portfolio website for **George Koufie**, Cloud & DevOps Engineer. Built with plain HTML/CSS/JS and deployed to AWS Amplify Hosting via Git-based CI/CD (auto-builds on every push to `main`). Docker/nginx are included for local preview and mirror the production security headers.
+Personal portfolio website for **George Koufie**, Cloud Infrastructure Engineer. Built with plain HTML/CSS/JS and deployed to AWS Amplify Hosting via Git-based CI/CD (auto-builds on every push to `main`). Docker/nginx are included for local preview and mirror the production security headers.
 
 **Live site:** [georgekoufie.dev](https://georgekoufie.dev)
 
@@ -129,12 +129,12 @@ The same policy is enforced in both environments, just via different mechanisms:
 
 | Section | Description |
 |---|---|
-| Hero | Name, title, stats (3+ years, 6 certs, 2 cloud platforms) |
+| Hero | Name, title, stats (3+ years, 10 certs, 7 projects) |
 | About | Terminal-style card with key/value layout |
-| Skills | 6 categories: Cloud, IaC, Containers, CI/CD, Monitoring, Security |
-| Projects | 4 featured projects (EKS, AKS, Lambda, Terraform) |
-| Resume | Career timeline + PDF download |
-| Contact | Form (Formspree) + LinkedIn, YouTube, email links |
+| Skills | 6 categories matching the resume: Cloud Platforms (AWS), IaC, CI/CD & Containers, Networking & Security, Linux & Scripting, AI-Augmented Development |
+| Projects | 7 real projects from the resume (Hybrid Cloud Network, Serverless Link Shortener, DevSecOps Pipeline, Security Baseline Audit Tool, AI-Augmented Cloud Development, Enterprise AWS Landing Zone, Event-Driven Security Guardrail) |
+| Resume | Career timeline (Onslow County Gov., CarolinaEast Health System), education, and certification chips + PDF download |
+| Contact | Form (Formspree) + LinkedIn, GitHub, YouTube, email links |
 
 ---
 
@@ -160,11 +160,15 @@ Cost: AWS Amplify Hosting's free tier (1,000 build minutes/month, 15 GB served/m
 ## Certifications
 
 - AWS Certified Solutions Architect – Associate
-- Microsoft Azure Administrator (AZ-104)
-- Certified Kubernetes Administrator (CKA)
+- AWS Certified Cloud Practitioner
+- Microsoft Certified: Azure Administrator Associate (AZ-104)
+- Microsoft Certified: Azure Fundamentals (AZ-900)
+- CompTIA Cloud+
 - CompTIA Security+
 - CompTIA Network+
-- AWS Cloud Practitioner
+- CompTIA A+
+- CompTIA Project+
+- LPI Linux Essentials
 
 ---
 
@@ -172,6 +176,7 @@ Cost: AWS Amplify Hosting's free tier (1,000 build minutes/month, 15 GB served/m
 
 - **Email:** gkoufie224@gmail.com
 - **LinkedIn:** [linkedin.com/in/george-koufie](https://www.linkedin.com/in/george-koufie/)
+- **GitHub:** [github.com/gkoufie1](https://github.com/gkoufie1)
 - **YouTube:** [youtube.com/@cloudcapecoast](https://youtube.com/@cloudcapecoast)
 
 ---
