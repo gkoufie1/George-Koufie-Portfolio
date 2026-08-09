@@ -4,8 +4,8 @@
   "description": "Cloud & DevOps Engineer specializing in AWS, Azure, Kubernetes, and CI/CD automation.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#050810",
-  "theme_color": "#050810",
+  "background_color": "#f0f4f8",
+  "theme_color": "#f0f4f8",
   "icons": [
     {
       "src": "favicon-32x32.png",

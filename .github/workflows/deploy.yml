@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Validate
 
 on:
   push:
@@ -12,6 +12,10 @@ env:
 jobs:
 
   # ── Job: Validate ─────────────────────────────────────────────
+  # Deployment itself is handled by AWS Amplify Hosting's native Git
+  # integration (auto-builds/deploys on push once the repo is connected
+  # in the Amplify console) — this job only sanity-checks the local
+  # Docker preview image used for development.
   validate:
     name: Validate
     runs-on: ubuntu-latest
@@ -20,85 +24,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build Docker image
+      - name: Build Docker image (local preview)
         run: docker build -t $IMAGE_NAME:test .
 
       - name: Validate nginx config
         run: docker run --rm $IMAGE_NAME:test nginx -t
-
-  # ── Job: Build & Deploy ───────────────────────────────────────
-  build-and-deploy:
-    name: Build & Deploy
-    runs-on: ubuntu-latest
-    needs: validate
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    permissions:
-      id-token: write
-      contents: read
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-          aws-region: ${{ secrets.AWS_REGION }}
-
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
-
-      - name: Build, tag, and push image to ECR
-        id: build-image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-        run: |
-          IMAGE_URI=$ECR_REGISTRY/$ECR_REPOSITORY:${{ github.run_number }}
-          docker build -t $IMAGE_URI .
-          docker tag $IMAGE_URI $ECR_REGISTRY/$ECR_REPOSITORY:latest
-          docker push $IMAGE_URI
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
-          echo "image=$IMAGE_URI" >> $GITHUB_OUTPUT
-
-      - name: Download current ECS task definition
-        env:
-          TASK_FAMILY: ${{ secrets.ECS_TASK_FAMILY }}
-        run: |
-          aws ecs describe-task-definition \
-            --task-definition $TASK_FAMILY \
-            --query taskDefinition > task-definition.json
-
-      - name: Update task definition with new image
-        id: task-def
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
-        with:
-          task-definition: task-definition.json
-          container-name: ${{ secrets.ECS_CONTAINER_NAME }}
-          image: ${{ steps.build-image.outputs.image }}
-
-      - name: Deploy to ECS
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
-        with:
-          task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: ${{ secrets.ECS_SERVICE }}
-          cluster: ${{ secrets.ECS_CLUSTER }}
-          wait-for-service-stability: true
-
-      - name: Health Check
-        env:
-          PORTFOLIO_URL: ${{ secrets.PORTFOLIO_URL }}
-        run: |
-          for i in $(seq 1 10); do
-            HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" $PORTFOLIO_URL)
-            echo "Attempt $i — HTTP Status: $HTTP_STATUS"
-            if [ "$HTTP_STATUS" = "200" ]; then
-              echo "Health check PASSED"
-              exit 0
-            fi
-            sleep 5
-          done
-          echo "Health check FAILED after 10 attempts"
-          exit 1

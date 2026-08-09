@@ -1,6 +1,6 @@
 # George Koufie — Portfolio
 
-Personal portfolio website for **George Koufie**, Cloud & DevOps Engineer. Built with plain HTML/CSS/JS, containerized with Docker, and deployed to AWS EC2 via a fully automated GitHub Actions CI/CD pipeline.
+Personal portfolio website for **George Koufie**, Cloud & DevOps Engineer. Built with plain HTML/CSS/JS and deployed to AWS Amplify Hosting via Git-based CI/CD (auto-builds on every push to `main`). Docker/nginx are included for local preview and mirror the production security headers.
 
 **Live site:** [georgekoufie.dev](https://georgekoufie.dev)
 
@@ -11,10 +11,10 @@ Personal portfolio website for **George Koufie**, Cloud & DevOps Engineer. Built
 | Layer | Technology |
 |---|---|
 | Frontend | HTML5, CSS3, Vanilla JavaScript |
-| Web Server | nginx 1.27 (Alpine) |
-| Containerization | Docker |
-| CI/CD | GitHub Actions |
-| Hosting | AWS EC2 |
+| Web Server (local preview) | nginx 1.29 (Alpine) |
+| Containerization (local preview) | Docker |
+| CI/CD | AWS Amplify Hosting (Git-based) + GitHub Actions (PR validation) |
+| Hosting | AWS Amplify Hosting |
 | DNS | Custom domain — georgekoufie.dev |
 | Contact Form | Formspree |
 | Fonts | Google Fonts (Space Mono, Bebas Neue, Inter) |
@@ -25,9 +25,12 @@ Personal portfolio website for **George Koufie**, Cloud & DevOps Engineer. Built
 
 ```
 ├── index.html                    # Main single-page site
-├── Dockerfile                    # nginx:alpine container definition
-├── nginx.conf                    # Static caching, security headers, SPA fallback
+├── amplify.yml                   # Amplify Hosting build spec (static, no build step)
+├── customHttp.yml                # Amplify Hosting security headers + cache-control
+├── Dockerfile                    # nginx:alpine container — local preview only
+├── nginx.conf                    # Local preview: caching, security headers, SPA fallback
 ├── robots.txt                    # Search engine directives
+├── sitemap.xml                   # XML sitemap
 ├── assets/
 │   ├── css/
 │   │   ├── main.css              # Core styles and layout
@@ -35,48 +38,50 @@ Personal portfolio website for **George Koufie**, Cloud & DevOps Engineer. Built
 │   ├── js/
 │   │   └── main.js               # Intersection observer + form handler
 │   └── images/
+│       ├── og-image.png          # Open Graph / Twitter share image
 │       └── favicon/              # Favicon, apple-touch-icon, webmanifest
 ├── resume/
 │   └── George-Koufie-Portfolio.pdf
 └── .github/
     └── workflows/
-        └── deploy.yml            # CI/CD pipeline
+        └── deploy.yml            # PR/push validation (docker build + nginx -t) — not deployment
 ```
 
 ---
 
 ## CI/CD Pipeline
 
-Every push to `main` triggers a fully automated deployment:
+Deployment and validation are split across two systems:
+
+- **AWS Amplify Hosting** is connected directly to this GitHub repo. Every push to `main` triggers Amplify to pull the repo, run `amplify.yml` (no build step — it's static HTML/CSS/JS), apply the headers in `customHttp.yml`, and publish to the CDN. No GitHub secrets are needed for this — Amplify holds its own repo access token internally.
+- **GitHub Actions** (`.github/workflows/deploy.yml`) runs on every push/PR as a sanity check: builds the local preview Docker image and validates the nginx config (`nginx -t`). It does not deploy anything.
 
 ```
 Push to main
     │
-    ▼
-Build Docker image (tagged with run number + latest)
+    ├──▶ AWS Amplify Hosting (Git-integrated)
+    │        │
+    │        ▼
+    │    Build per amplify.yml (static — no build step)
+    │        │
+    │        ▼
+    │    Apply headers (customHttp.yml) → publish to CDN
+    │        │
+    │        ▼
+    │    Live at georgekoufie.dev
     │
-    ▼
-Verify EC2 port 22 reachability
-    │
-    ▼
-SCP compressed image to EC2
-    │
-    ▼
-SSH → docker load → remove old container → run new container
-    │
-    ▼
-Health check (10 retries × 3s) → HTTP 200 required
-    │
-    ▼
-Cleanup sensitive files (runs on success AND failure)
+    └──▶ GitHub Actions: docker build + nginx -t   (PR/local sanity check only)
 ```
 
-**Secrets used:**
+No GitHub Actions secrets are required for deployment.
 
-| Secret | Description |
-|---|---|
-| `PORTFOLIO_SSH_KEY` | EC2 SSH private key (PEM format) |
-| `PORTFOLIO_SERVER_IP` | EC2 public IP address |
+**One-time setup** (done once via the AWS Console, since connecting a GitHub repo requires an interactive OAuth authorization):
+
+1. AWS Console → Amplify → **Create app** → Host a web app → GitHub → authorize AWS Amplify's GitHub App → select this repo and the `main` branch.
+2. Amplify auto-detects `amplify.yml`; accept the default build settings and deploy.
+3. App settings → **Custom headers** → point it at `customHttp.yml` (or paste its contents) so the security headers ship in production.
+4. App settings → **Domain management** → add `georgekoufie.dev`, then update your DNS with the CNAME/ALIAS records Amplify provides.
+5. Every subsequent push to `main` deploys automatically — no further console steps needed.
 
 ---
 
@@ -107,17 +112,16 @@ docker rm -f portfolio
 
 ---
 
-## nginx Configuration
+## Headers & Caching
 
-The nginx server is configured with:
+The same policy is enforced in both environments, just via different mechanisms:
 
-- **Static asset caching** — CSS, JS, images, fonts cached for 1 year with `immutable` directive
-- **SPA fallback** — all routes fall back to `index.html`
-- **Security headers:**
-  - `X-Frame-Options: SAMEORIGIN`
-  - `X-Content-Type-Options: nosniff`
-  - `X-XSS-Protection: 1; mode=block`
-  - `Referrer-Policy: strict-origin-when-cross-origin`
+| | Local preview (Docker) | Production (Amplify) |
+|---|---|---|
+| Config file | `nginx.conf` | `customHttp.yml` |
+| Static asset caching | 1 year, `immutable` | 1 year, `immutable` |
+| SPA fallback | `try_files` → `index.html` | Amplify default |
+| Security headers | `X-Frame-Options`, `X-Content-Type-Options`, `X-XSS-Protection`, `Referrer-Policy`, `Content-Security-Policy` | same |
 
 ---
 
@@ -140,19 +144,16 @@ The nginx server is configured with:
 GitHub (push to main)
         │
         ▼
-GitHub Actions Runner (ubuntu-latest)
+AWS Amplify Hosting (Git-connected app)
         │
-        ├── docker build
-        ├── docker save | gzip
-        └── SCP + SSH
+        ├── amplify.yml       → static build (no compile step)
+        ├── customHttp.yml    → security headers + cache-control
+        └── Managed CDN (CloudFront under the hood)
                 │
-                ▼
-        AWS EC2 Instance
-                │
-                └── Docker Container (nginx:alpine)
-                        │
-                        └── Port 80 → georgekoufie.dev
+                └── georgekoufie.dev
 ```
+
+Cost: AWS Amplify Hosting's free tier (1,000 build minutes/month, 15 GB served/month, 5 GB stored) comfortably covers a low-traffic personal portfolio — effectively $0/month.
 
 ---
 
