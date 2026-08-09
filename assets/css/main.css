@@ -139,11 +139,9 @@ section { position: relative; z-index: 1; }
   font-size: clamp(4rem, 10vw, 9rem);
   line-height: 0.9;
   letter-spacing: 2px;
-  color: var(--text);
+  color: var(--accent);
   margin-bottom: 0.5rem;
 }
-
-.hero-name span { color: var(--accent); }
 
 .hero-title {
   font-family: 'Bebas Neue', sans-serif;
