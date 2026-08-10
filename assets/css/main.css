@@ -403,6 +403,8 @@ section { position: relative; z-index: 1; }
   position: relative;
   overflow: hidden;
   transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
   clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
 }
 
@@ -477,6 +479,8 @@ section { position: relative; z-index: 1; }
   align-items: center;
   gap: 0.5rem;
   transition: gap 0.2s;
+  margin-top: auto;
+  padding-top: 1rem;
 }
 
 .project-link:hover { gap: 0.8rem; }

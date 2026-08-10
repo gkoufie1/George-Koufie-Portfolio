@@ -103,7 +103,7 @@
         <div class="project-number">01</div>
         <div class="project-type">Networking &amp; Infrastructure as Code</div>
         <div class="project-name">Hybrid Cloud Network Architecture</div>
-        <p class="project-desc">A cloud-native version of the secure facility-to-facility tunneling I've done professionally — a multi-VPC network joined through a Transit Gateway hub with a real Site-to-Site IPsec VPN. Getting from a clean "terraform apply" to actual working traffic took finding and fixing 9 real bugs, including a GitHub Actions OIDC claim-format change that made two byte-identical IAM trust policies behave differently — diagnosed by reading CloudTrail's raw denial event. Verified with a full destroy/reapply from scratch: 0% packet loss end-to-end on the first attempt.</p>
+        <p class="project-desc">A cloud-native version of secure facility-to-facility tunneling I've done professionally — a multi-VPC network joined through a Transit Gateway hub with a real Site-to-Site IPsec VPN. Getting from a clean deploy to working traffic took fixing 9 real bugs, including two byte-identical IAM trust policies behaving differently — diagnosed via CloudTrail's raw denial event. Verified end-to-end: 0% packet loss on the first attempt after a full destroy/reapply.</p>
         <div class="project-tags">
           <span class="project-tag">Terraform</span>
           <span class="project-tag">Transit Gateway</span>
