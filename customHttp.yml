@@ -12,7 +12,7 @@ customHeaders:
       - key: 'Referrer-Policy'
         value: 'strict-origin-when-cross-origin'
       - key: 'Content-Security-Policy'
-        value: "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; img-src 'self' data:; connect-src https://formspree.io; form-action https://formspree.io;"
+        value: "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' https://static.cloudflareinsights.com; img-src 'self' data:; connect-src https://formspree.io https://cloudflareinsights.com; form-action https://formspree.io;"
   - pattern: '**/*.@(css|js|png|jpg|jpeg|gif|ico|webp|woff|woff2|ttf|svg|pdf)'
     headers:
       - key: 'Cache-Control'
