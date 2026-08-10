@@ -49,9 +49,9 @@
 <nav>
   <div class="nav-logo">GK</div>
   <ul class="nav-links" id="navLinks">
+    <li><a href="#projects">Projects</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Projects</a></li>
     <li><a href="#resume">Resume</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -86,6 +86,113 @@
     <div class="stat">
       <div class="stat-num">7</div>
       <div class="stat-label">Projects Built</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="projects-inner">
+    <div class="projects-header fade-up">
+      <div class="section-label">Featured Work</div>
+      <h2 class="section-title">Projects That Shipped</h2>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card fade-up">
+        <div class="project-number">01</div>
+        <div class="project-type">Networking &amp; Infrastructure as Code</div>
+        <div class="project-name">Hybrid Cloud Network Architecture</div>
+        <p class="project-desc">Designed and deployed a multi-VPC hybrid network with Transit Gateway hub-and-spoke routing and Site-to-Site VPN/IPsec, validated through repeatable Terraform destroy/reapply cycles. Diagnosed a GitHub Actions OIDC authentication failure invisible to config comparison by reading CloudTrail's raw denial event, restoring CI/CD without weakening the trust policy.</p>
+        <div class="project-tags">
+          <span class="project-tag">Terraform</span>
+          <span class="project-tag">Transit Gateway</span>
+          <span class="project-tag">Site-to-Site VPN</span>
+          <span class="project-tag">GitHub Actions</span>
+        </div>
+        <a href="https://github.com/gkoufie1/aws-hybrid-network-architecture" class="project-link" target="_blank" rel="noopener noreferrer">View Project &rarr;</a>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-number">02</div>
+        <div class="project-type">Serverless / Event-Driven</div>
+        <div class="project-name">Serverless Link Shortener API</div>
+        <p class="project-desc">Designed and built a production-style serverless REST API using Lambda, API Gateway, and DynamoDB, demonstrating event-driven architecture, stateless compute, and infrastructure automation.</p>
+        <div class="project-tags">
+          <span class="project-tag">AWS Lambda</span>
+          <span class="project-tag">API Gateway</span>
+          <span class="project-tag">DynamoDB</span>
+        </div>
+        <a href="https://github.com/gkoufie1/shortlink-api" class="project-link" target="_blank" rel="noopener noreferrer">View Project &rarr;</a>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-number">03</div>
+        <div class="project-type">DevSecOps</div>
+        <div class="project-name">DevSecOps CI/CD Pipeline</div>
+        <p class="project-desc">Built a GitHub Actions CI/CD pipeline integrating automated SAST (Semgrep) and container vulnerability scanning (Trivy) with deployment quality gates that prevented critical vulnerabilities from reaching Kubernetes.</p>
+        <div class="project-tags">
+          <span class="project-tag">GitHub Actions</span>
+          <span class="project-tag">Docker</span>
+          <span class="project-tag">Trivy</span>
+          <span class="project-tag">Semgrep</span>
+          <span class="project-tag">Kubernetes</span>
+        </div>
+        <a href="https://github.com/gkoufie1/devsecops-security-pipeline-project" class="project-link" target="_blank" rel="noopener noreferrer">View Project &rarr;</a>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-number">04</div>
+        <div class="project-type">Security Automation</div>
+        <div class="project-name">AWS Security Baseline Audit Tool</div>
+        <p class="project-desc">Built a Python CLI using boto3 to identify AWS security misconfigurations across IAM, S3, EC2, CloudTrail, and RDS, producing JSON, HTML, and terminal reports through modular, testable code.</p>
+        <div class="project-tags">
+          <span class="project-tag">Python</span>
+          <span class="project-tag">boto3</span>
+        </div>
+        <a href="https://github.com/gkoufie1/aws-security-baseline-audit" class="project-link" target="_blank" rel="noopener noreferrer">View Project &rarr;</a>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-number">05</div>
+        <div class="project-type">AI-Assisted Engineering</div>
+        <div class="project-name">AI-Augmented Cloud Development</div>
+        <p class="project-desc">Used Claude Code as an AI engineering assistant to accelerate solution design, implementation, debugging, documentation, and infrastructure troubleshooting across multiple AWS projects — validating all generated code before deployment.</p>
+        <div class="project-tags">
+          <span class="project-tag">Claude Code</span>
+          <span class="project-tag">AWS</span>
+        </div>
+        <a href="https://github.com/gkoufie1" class="project-link" target="_blank" rel="noopener noreferrer">View Project &rarr;</a>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-number">06</div>
+        <div class="project-type">Infrastructure as Code</div>
+        <div class="project-name">Enterprise AWS Landing Zone (NovaRetail)</div>
+        <p class="project-desc">Designed a secure multi-account AWS Landing Zone (Terraform: VPC, IAM, security, logging, budget modules) replacing ad hoc developer-provisioned resources that caused inconsistent networking and audit-visibility gaps. Backed by architecture decision records, a documented threat model, and Python-based compliance audit tooling with unit test coverage.</p>
+        <div class="project-tags">
+          <span class="project-tag">Terraform</span>
+          <span class="project-tag">GitHub Actions</span>
+          <span class="project-tag">Python</span>
+        </div>
+        <a href="https://github.com/gkoufie1/novaretail-enterprise-aws-landing-zone" class="project-link" target="_blank" rel="noopener noreferrer">View Project &rarr;</a>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-number">07</div>
+        <div class="project-type">Security Automation</div>
+        <div class="project-name">Event-Driven Security Guardrail</div>
+        <p class="project-desc">Built an event-driven security automation pipeline using EventBridge, Lambda, and CloudTrail to detect and automatically remediate security group and S3 misconfigurations, with IAM policies enforcing resource-level remediation boundaries and actions logged to DynamoDB for auditability.</p>
+        <div class="project-tags">
+          <span class="project-tag">EventBridge</span>
+          <span class="project-tag">Lambda</span>
+          <span class="project-tag">CloudTrail</span>
+          <span class="project-tag">DynamoDB</span>
+          <span class="project-tag">Terraform</span>
+        </div>
+        <a href="https://github.com/gkoufie1/aws-eventdriven-security-guardrail" class="project-link" target="_blank" rel="noopener noreferrer">View Project &rarr;</a>
+      </div>
+
     </div>
   </div>
 </section>
@@ -196,113 +303,6 @@
           <span class="skill-tag">Prompt Engineering</span>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="projects-inner">
-    <div class="projects-header fade-up">
-      <div class="section-label">Featured Work</div>
-      <h2 class="section-title">Projects That Shipped</h2>
-    </div>
-    <div class="projects-grid">
-
-      <div class="project-card fade-up">
-        <div class="project-number">01</div>
-        <div class="project-type">Networking &amp; Infrastructure as Code</div>
-        <div class="project-name">Hybrid Cloud Network Architecture</div>
-        <p class="project-desc">Designed and deployed a multi-VPC hybrid network with Transit Gateway hub-and-spoke routing and Site-to-Site VPN/IPsec, validated through repeatable Terraform destroy/reapply cycles. Diagnosed a GitHub Actions OIDC authentication failure invisible to config comparison by reading CloudTrail's raw denial event, restoring CI/CD without weakening the trust policy.</p>
-        <div class="project-tags">
-          <span class="project-tag">Terraform</span>
-          <span class="project-tag">Transit Gateway</span>
-          <span class="project-tag">Site-to-Site VPN</span>
-          <span class="project-tag">GitHub Actions</span>
-        </div>
-        <a href="https://github.com/gkoufie1/aws-hybrid-network-architecture" class="project-link" target="_blank" rel="noopener noreferrer">View Project &rarr;</a>
-      </div>
-
-      <div class="project-card fade-up">
-        <div class="project-number">02</div>
-        <div class="project-type">Serverless / Event-Driven</div>
-        <div class="project-name">Serverless Link Shortener API</div>
-        <p class="project-desc">Designed and built a production-style serverless REST API using Lambda, API Gateway, and DynamoDB, demonstrating event-driven architecture, stateless compute, and infrastructure automation.</p>
-        <div class="project-tags">
-          <span class="project-tag">AWS Lambda</span>
-          <span class="project-tag">API Gateway</span>
-          <span class="project-tag">DynamoDB</span>
-        </div>
-        <a href="https://github.com/gkoufie1/shortlink-api" class="project-link" target="_blank" rel="noopener noreferrer">View Project &rarr;</a>
-      </div>
-
-      <div class="project-card fade-up">
-        <div class="project-number">03</div>
-        <div class="project-type">DevSecOps</div>
-        <div class="project-name">DevSecOps CI/CD Pipeline</div>
-        <p class="project-desc">Built a GitHub Actions CI/CD pipeline integrating automated SAST (Semgrep) and container vulnerability scanning (Trivy) with deployment quality gates that prevented critical vulnerabilities from reaching Kubernetes.</p>
-        <div class="project-tags">
-          <span class="project-tag">GitHub Actions</span>
-          <span class="project-tag">Docker</span>
-          <span class="project-tag">Trivy</span>
-          <span class="project-tag">Semgrep</span>
-          <span class="project-tag">Kubernetes</span>
-        </div>
-        <a href="https://github.com/gkoufie1/devsecops-security-pipeline-project" class="project-link" target="_blank" rel="noopener noreferrer">View Project &rarr;</a>
-      </div>
-
-      <div class="project-card fade-up">
-        <div class="project-number">04</div>
-        <div class="project-type">Security Automation</div>
-        <div class="project-name">AWS Security Baseline Audit Tool</div>
-        <p class="project-desc">Built a Python CLI using boto3 to identify AWS security misconfigurations across IAM, S3, EC2, CloudTrail, and RDS, producing JSON, HTML, and terminal reports through modular, testable code.</p>
-        <div class="project-tags">
-          <span class="project-tag">Python</span>
-          <span class="project-tag">boto3</span>
-        </div>
-        <a href="https://github.com/gkoufie1/aws-security-baseline-audit" class="project-link" target="_blank" rel="noopener noreferrer">View Project &rarr;</a>
-      </div>
-
-      <div class="project-card fade-up">
-        <div class="project-number">05</div>
-        <div class="project-type">AI-Assisted Engineering</div>
-        <div class="project-name">AI-Augmented Cloud Development</div>
-        <p class="project-desc">Used Claude Code as an AI engineering assistant to accelerate solution design, implementation, debugging, documentation, and infrastructure troubleshooting across multiple AWS projects — validating all generated code before deployment.</p>
-        <div class="project-tags">
-          <span class="project-tag">Claude Code</span>
-          <span class="project-tag">AWS</span>
-        </div>
-        <a href="https://github.com/gkoufie1" class="project-link" target="_blank" rel="noopener noreferrer">View Project &rarr;</a>
-      </div>
-
-      <div class="project-card fade-up">
-        <div class="project-number">06</div>
-        <div class="project-type">Infrastructure as Code</div>
-        <div class="project-name">Enterprise AWS Landing Zone (NovaRetail)</div>
-        <p class="project-desc">Designed a secure multi-account AWS Landing Zone (Terraform: VPC, IAM, security, logging, budget modules) replacing ad hoc developer-provisioned resources that caused inconsistent networking and audit-visibility gaps. Backed by architecture decision records, a documented threat model, and Python-based compliance audit tooling with unit test coverage.</p>
-        <div class="project-tags">
-          <span class="project-tag">Terraform</span>
-          <span class="project-tag">GitHub Actions</span>
-          <span class="project-tag">Python</span>
-        </div>
-        <a href="https://github.com/gkoufie1/novaretail-enterprise-aws-landing-zone" class="project-link" target="_blank" rel="noopener noreferrer">View Project &rarr;</a>
-      </div>
-
-      <div class="project-card fade-up">
-        <div class="project-number">07</div>
-        <div class="project-type">Security Automation</div>
-        <div class="project-name">Event-Driven Security Guardrail</div>
-        <p class="project-desc">Built an event-driven security automation pipeline using EventBridge, Lambda, and CloudTrail to detect and automatically remediate security group and S3 misconfigurations, with IAM policies enforcing resource-level remediation boundaries and actions logged to DynamoDB for auditability.</p>
-        <div class="project-tags">
-          <span class="project-tag">EventBridge</span>
-          <span class="project-tag">Lambda</span>
-          <span class="project-tag">CloudTrail</span>
-          <span class="project-tag">DynamoDB</span>
-          <span class="project-tag">Terraform</span>
-        </div>
-        <a href="https://github.com/gkoufie1/aws-eventdriven-security-guardrail" class="project-link" target="_blank" rel="noopener noreferrer">View Project &rarr;</a>
-      </div>
-
     </div>
   </div>
 </section>
