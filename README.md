@@ -133,7 +133,7 @@ The same policy is enforced in both environments, just via different mechanisms:
 | About | Terminal-style card with key/value layout |
 | Skills | 6 categories matching the resume: Cloud Platforms (AWS), IaC, CI/CD & Containers, Networking & Security, Linux & Scripting, AI-Augmented Development |
 | Projects | 7 real projects from the resume (Hybrid Cloud Network, Serverless Link Shortener, DevSecOps Pipeline, Security Baseline Audit Tool, AI-Augmented Cloud Development, Enterprise AWS Landing Zone, Event-Driven Security Guardrail) |
-| Resume | Career timeline (Onslow County Gov., CarolinaEast Health System), education, and certification chips + PDF download |
+| Resume | Education timeline and certification chips + PDF download (work experience omitted from the page — visible in the downloadable PDF only) |
 | Contact | Form (Formspree) + LinkedIn, GitHub, YouTube, email links |
 
 ---
