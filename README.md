@@ -121,7 +121,7 @@ The same policy is enforced in both environments, just via different mechanisms:
 | Config file | `nginx.conf` | `customHttp.yml` |
 | Static asset caching | 1 year, `immutable` | 1 year, `immutable` |
 | SPA fallback | `try_files` → `index.html` | Amplify default |
-| Security headers | `X-Frame-Options`, `X-Content-Type-Options`, `X-XSS-Protection`, `Referrer-Policy`, `Content-Security-Policy` | same |
+| Security headers | `Strict-Transport-Security`, `X-Frame-Options`, `X-Content-Type-Options`, `X-XSS-Protection`, `Referrer-Policy`, `Content-Security-Policy` | same |
 
 ---
 
