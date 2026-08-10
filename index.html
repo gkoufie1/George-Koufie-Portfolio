@@ -103,7 +103,7 @@
         <div class="project-number">01</div>
         <div class="project-type">Networking &amp; Infrastructure as Code</div>
         <div class="project-name">Hybrid Cloud Network Architecture</div>
-        <p class="project-desc">Designed and deployed a multi-VPC hybrid network with Transit Gateway hub-and-spoke routing and Site-to-Site VPN/IPsec, validated through repeatable Terraform destroy/reapply cycles. Diagnosed a GitHub Actions OIDC authentication failure invisible to config comparison by reading CloudTrail's raw denial event, restoring CI/CD without weakening the trust policy.</p>
+        <p class="project-desc">A cloud-native version of the secure facility-to-facility tunneling I've done professionally — a multi-VPC network joined through a Transit Gateway hub with a real Site-to-Site IPsec VPN. Getting from a clean "terraform apply" to actual working traffic took finding and fixing 9 real bugs, including a GitHub Actions OIDC claim-format change that made two byte-identical IAM trust policies behave differently — diagnosed by reading CloudTrail's raw denial event. Verified with a full destroy/reapply from scratch: 0% packet loss end-to-end on the first attempt.</p>
         <div class="project-tags">
           <span class="project-tag">Terraform</span>
           <span class="project-tag">Transit Gateway</span>
@@ -117,7 +117,7 @@
         <div class="project-number">02</div>
         <div class="project-type">Serverless / Event-Driven</div>
         <div class="project-name">Serverless Link Shortener API</div>
-        <p class="project-desc">Designed and built a production-style serverless REST API using Lambda, API Gateway, and DynamoDB, demonstrating event-driven architecture, stateless compute, and infrastructure automation.</p>
+        <p class="project-desc">A fully serverless link shortener that costs $0 at rest — nothing runs between requests. The obvious approach (check if a code exists, then write it) has a race condition under concurrent requests; solved it with DynamoDB's atomic conditional write instead, plus a Lambda IAM role scoped to exactly three actions on one table.</p>
         <div class="project-tags">
           <span class="project-tag">AWS Lambda</span>
           <span class="project-tag">API Gateway</span>
@@ -130,7 +130,7 @@
         <div class="project-number">03</div>
         <div class="project-type">DevSecOps</div>
         <div class="project-name">DevSecOps CI/CD Pipeline</div>
-        <p class="project-desc">Built a GitHub Actions CI/CD pipeline integrating automated SAST (Semgrep) and container vulnerability scanning (Trivy) with deployment quality gates that prevented critical vulnerabilities from reaching Kubernetes.</p>
+        <p class="project-desc">A 6-stage GitHub Actions pipeline (lint → test → Semgrep SAST → Trivy container scan → ECR → EKS) that enforces a hard quality gate: critical vulnerabilities block the deploy instead of reaching production. Shifts security left so scanning happens before a bad image ever reaches Kubernetes, not after.</p>
         <div class="project-tags">
           <span class="project-tag">GitHub Actions</span>
           <span class="project-tag">Docker</span>
@@ -145,7 +145,7 @@
         <div class="project-number">04</div>
         <div class="project-type">Security Automation</div>
         <div class="project-name">AWS Security Baseline Audit Tool</div>
-        <p class="project-desc">Built a Python CLI using boto3 to identify AWS security misconfigurations across IAM, S3, EC2, CloudTrail, and RDS, producing JSON, HTML, and terminal reports through modular, testable code.</p>
+        <p class="project-desc">A Python CLI covering 12 security checks across IAM, S3, EC2, CloudTrail, and RDS — built to understand how tools like Prowler work internally, not to replace them. Every check is tested against mocked AWS calls (31 tests, no real account needed), yet pointed at my own real AWS account it found genuine problems on the first run: security groups with SSH/RDP open to the internet, no active multi-region CloudTrail trail, and a 415-day-old access key.</p>
         <div class="project-tags">
           <span class="project-tag">Python</span>
           <span class="project-tag">boto3</span>
@@ -169,7 +169,7 @@
         <div class="project-number">06</div>
         <div class="project-type">Infrastructure as Code</div>
         <div class="project-name">Enterprise AWS Landing Zone (NovaRetail)</div>
-        <p class="project-desc">Designed a secure multi-account AWS Landing Zone (Terraform: VPC, IAM, security, logging, budget modules) replacing ad hoc developer-provisioned resources that caused inconsistent networking and audit-visibility gaps. Backed by architecture decision records, a documented threat model, and Python-based compliance audit tooling with unit test coverage.</p>
+        <p class="project-desc">NovaRetail's developers were manually provisioning AWS resources — inconsistent networking, weak governance, public-exposure risk, no audit visibility. Built a Terraform Landing Zone (3-tier VPC, centralized CloudTrail logging, GuardDuty, Security Hub, KMS-encrypted logs, least-privilege audit role) plus Python audit scripts for security groups, S3, and cost — reducing environment setup from hours to minutes while standardizing security controls.</p>
         <div class="project-tags">
           <span class="project-tag">Terraform</span>
           <span class="project-tag">GitHub Actions</span>
@@ -182,7 +182,7 @@
         <div class="project-number">07</div>
         <div class="project-type">Security Automation</div>
         <div class="project-name">Event-Driven Security Guardrail</div>
-        <p class="project-desc">Built an event-driven security automation pipeline using EventBridge, Lambda, and CloudTrail to detect and automatically remediate security group and S3 misconfigurations, with IAM policies enforcing resource-level remediation boundaries and actions logged to DynamoDB for auditability.</p>
+        <p class="project-desc">Extends my Security Baseline Audit tool from on-demand scanning into continuous enforcement: EventBridge catches risky changes (open security groups, public S3 buckets) in real time and Lambda remediates them automatically. First deploy looked correct but silently did nothing — CloudTrail's always-on Event History doesn't feed EventBridge, only an actual Trail resource does. Verified both directions: in-scope resources get auto-remediated, and IAM denies remediation on anything out of scope, confirmed by testing an untagged security group and finding the open rule still there.</p>
         <div class="project-tags">
           <span class="project-tag">EventBridge</span>
           <span class="project-tag">Lambda</span>
