@@ -296,6 +296,21 @@ section { position: relative; z-index: 1; }
 
 .about-visual { position: relative; }
 
+.about-photo {
+  max-width: 320px;
+  margin-bottom: 1.5rem;
+  border: 2px solid var(--accent);
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+  overflow: hidden;
+  box-shadow: var(--glow);
+}
+
+.about-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .about-card {
   background: var(--card);
   border: 1px solid var(--border);
