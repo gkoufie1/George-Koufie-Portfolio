@@ -84,7 +84,7 @@
       <div class="stat-label">Certifications</div>
     </div>
     <div class="stat">
-      <div class="stat-num">7</div>
+      <div class="stat-num">9</div>
       <div class="stat-label">Projects Built</div>
     </div>
   </div>
@@ -191,6 +191,36 @@
           <span class="project-tag">Terraform</span>
         </div>
         <a href="https://github.com/gkoufie1/aws-eventdriven-security-guardrail" class="project-link" target="_blank" rel="noopener noreferrer">View Project &rarr;</a>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-number">08</div>
+        <div class="project-type">Kubernetes / SRE</div>
+        <div class="project-name">Kubernetes Metrics Pipeline (SRE Take-Home)</div>
+        <p class="project-desc">A take-home assignment built end-to-end on a local cluster: a CronJob gathers metrics into Redis, a Flask web app serves them, an HPA scales replicas under real CPU load, and a NetworkPolicy locks down pod-to-pod traffic. Hit a genuine Kubernetes gotcha along the way — a Service named "redis" made Kubernetes auto-inject its own `REDIS_PORT` env var, colliding with the app's identically-named variable and breaking the connection string. Verified the HPA live: CPU load hit 216% against a 50% target and replicas scaled from 2 to 6.</p>
+        <div class="project-tags">
+          <span class="project-tag">Kubernetes</span>
+          <span class="project-tag">CronJob</span>
+          <span class="project-tag">Redis</span>
+          <span class="project-tag">HPA</span>
+          <span class="project-tag">NetworkPolicy</span>
+        </div>
+        <a href="https://github.com/gkoufie1/sre-take-home" class="project-link" target="_blank" rel="noopener noreferrer">View Project &rarr;</a>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-number">09</div>
+        <div class="project-type">Incident Response / Networking</div>
+        <div class="project-name">AWS 503 Incident Response Lab</div>
+        <p class="project-desc">A self-directed lab reproducing a real production symptom — an ALB returning 503s on specific endpoints — behind a Cloudflare-proxied domain. Deliberately broke it four distinct ways and captured each one's real diagnostic signature: a deregistered target (503, zero capacity) versus a stopped-but-registered service (502, connection refused) versus a security group silently dropping the health-check port (504, timeout) versus an application-level bug that leaves the Target Group healthy while specific routes still 500. Built, diagnosed, and torn down in one session — verified clean via live AWS CLI checks afterward.</p>
+        <div class="project-tags">
+          <span class="project-tag">Terraform</span>
+          <span class="project-tag">ALB</span>
+          <span class="project-tag">Target Groups</span>
+          <span class="project-tag">Cloudflare</span>
+          <span class="project-tag">CloudWatch</span>
+        </div>
+        <a href="https://github.com/gkoufie1/sre-503-incident-lab" class="project-link" target="_blank" rel="noopener noreferrer">View Project &rarr;</a>
       </div>
 
     </div>
