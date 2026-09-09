@@ -183,17 +183,17 @@
 
       <div class="project-card fade-up">
         <div class="project-number">07</div>
-        <div class="project-type">Kubernetes / SRE</div>
-        <div class="project-name">Kubernetes Metrics Pipeline (SRE Take-Home)</div>
-        <p class="project-desc">A take-home assignment built end-to-end on a local cluster: a CronJob gathers metrics into Redis, a Flask web app serves them, an HPA scales replicas under real CPU load, and a NetworkPolicy locks down pod-to-pod traffic. Hit a genuine Kubernetes gotcha along the way — a Service named "redis" made Kubernetes auto-inject its own `REDIS_PORT` env var, colliding with the app's identically-named variable and breaking the connection string. Verified the HPA live: CPU load hit 216% against a 50% target and replicas scaled from 2 to 6.</p>
+        <div class="project-type">Compliance / Governance</div>
+        <div class="project-name">FedRAMP/NIST Secure AWS Landing Zone</div>
+        <p class="project-desc">A six-module Terraform landing zone (network, IAM, security, logging, config, budget) built around FedRAMP/NIST-style controls — CIS benchmark and NIST control mapping docs, four incident-response runbooks, example deny-policy SCPs, and a five-tool CI security pipeline (Checkov, tfsec, TFLint, Gitleaks, fmt/validate). The repo initially failed `terraform validate` outright — invalid HCL syntax across four modules — fixed alongside real hardening: MFA required on every privileged role's trust policy, TLS-only access enforced on the log bucket, and the log bucket's `force_destroy` defaulted to false so a routine `terraform destroy` can't silently wipe audit history. Statically validated in CI; not deployed.</p>
         <div class="project-tags">
-          <span class="project-tag">Kubernetes</span>
-          <span class="project-tag">CronJob</span>
-          <span class="project-tag">Redis</span>
-          <span class="project-tag">HPA</span>
-          <span class="project-tag">NetworkPolicy</span>
+          <span class="project-tag">Terraform</span>
+          <span class="project-tag">Checkov</span>
+          <span class="project-tag">tfsec</span>
+          <span class="project-tag">IAM</span>
+          <span class="project-tag">NIST / CIS</span>
         </div>
-        <a href="https://github.com/gkoufie1/sre-take-home" class="project-link" target="_blank" rel="noopener noreferrer">View Project &rarr;</a>
+        <a href="https://github.com/gkoufie1/fedramp-secure-landing-zone" class="project-link" target="_blank" rel="noopener noreferrer">View Project &rarr;</a>
       </div>
 
       <div class="project-card fade-up">
