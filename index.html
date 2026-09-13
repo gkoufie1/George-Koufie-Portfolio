@@ -101,6 +101,20 @@
 
       <div class="project-card fade-up">
         <div class="project-number">01</div>
+        <div class="project-type">Azure / API Platform</div>
+        <div class="project-name">Enterprise API Onboarding Platform (Azure API Management)</div>
+        <p class="project-desc">A shared Azure API Management platform where onboarding a new API never touches the gateway itself — separate Terraform state for the platform (owns the one APIM instance) versus per-API onboarding (reads platform outputs, can't create, replace, or delete APIM). Verified the real Entra ID auth chain end-to-end: real app registrations, real client-credentials tokens, and a call through the live gateway confirmed by checking for the backend's own CORS headers in the response — proof the request actually reached it, not just a synthetic 200 from the gateway. Applied, tested, and fully torn down the same session.</p>
+        <div class="project-tags">
+          <span class="project-tag">Azure API Management</span>
+          <span class="project-tag">Terraform</span>
+          <span class="project-tag">Entra ID</span>
+          <span class="project-tag">GitHub OIDC</span>
+        </div>
+        <a href="https://github.com/gkoufie1/cloud-api-workflow" class="project-link" target="_blank" rel="noopener noreferrer">View Project &rarr;</a>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-number">02</div>
         <div class="project-type">Networking &amp; Infrastructure as Code</div>
         <div class="project-name">Hybrid Cloud Network Architecture</div>
         <p class="project-desc">A cloud-native version of secure facility-to-facility tunneling I've done professionally — a multi-VPC network joined through a Transit Gateway hub with a real Site-to-Site IPsec VPN. Getting from a clean deploy to working traffic took fixing 9 real bugs, including two byte-identical IAM trust policies behaving differently — diagnosed via CloudTrail's raw denial event. Verified end-to-end: 0% packet loss on the first attempt after a full destroy/reapply.</p>
@@ -114,7 +128,7 @@
       </div>
 
       <div class="project-card fade-up">
-        <div class="project-number">02</div>
+        <div class="project-number">03</div>
         <div class="project-type">Serverless / Event-Driven</div>
         <div class="project-name">Serverless Link Shortener API</div>
         <p class="project-desc">A fully serverless link shortener that costs $0 at rest — nothing runs between requests. The obvious approach (check if a code exists, then write it) has a race condition under concurrent requests; solved it with DynamoDB's atomic conditional write instead, plus a Lambda IAM role scoped to exactly three actions on one table.</p>
@@ -127,7 +141,7 @@
       </div>
 
       <div class="project-card fade-up">
-        <div class="project-number">03</div>
+        <div class="project-number">04</div>
         <div class="project-type">DevSecOps</div>
         <div class="project-name">DevSecOps CI/CD Pipeline</div>
         <p class="project-desc">A 6-stage GitHub Actions pipeline (lint → test → Semgrep SAST → Trivy container scan → ECR → EKS) that enforces a hard quality gate: critical vulnerabilities block the deploy instead of reaching production. Shifts security left so scanning happens before a bad image ever reaches Kubernetes, not after.</p>
@@ -142,7 +156,7 @@
       </div>
 
       <div class="project-card fade-up">
-        <div class="project-number">04</div>
+        <div class="project-number">05</div>
         <div class="project-type">Security Automation</div>
         <div class="project-name">AWS Security Baseline Audit Tool</div>
         <p class="project-desc">A Python CLI covering 12 security checks across IAM, S3, EC2, CloudTrail, and RDS — built to understand how tools like Prowler work internally, not to replace them. Every check is tested against mocked AWS calls (31 tests, no real account needed), yet pointed at my own real AWS account it found genuine problems on the first run: security groups with SSH/RDP open to the internet, no active multi-region CloudTrail trail, and a 415-day-old access key.</p>
@@ -154,7 +168,7 @@
       </div>
 
       <div class="project-card fade-up">
-        <div class="project-number">05</div>
+        <div class="project-number">06</div>
         <div class="project-type">Infrastructure as Code</div>
         <div class="project-name">Enterprise AWS Landing Zone (NovaRetail)</div>
         <p class="project-desc">NovaRetail's developers were manually provisioning AWS resources — inconsistent networking, weak governance, public-exposure risk, no audit visibility. Built a Terraform Landing Zone (3-tier VPC, centralized CloudTrail logging, GuardDuty, Security Hub, KMS-encrypted logs, least-privilege audit role) plus Python audit scripts for security groups, S3, and cost — reducing environment setup from hours to minutes while standardizing security controls.</p>
@@ -167,7 +181,7 @@
       </div>
 
       <div class="project-card fade-up">
-        <div class="project-number">06</div>
+        <div class="project-number">07</div>
         <div class="project-type">Security Automation</div>
         <div class="project-name">Event-Driven Security Guardrail</div>
         <p class="project-desc">Extends my Security Baseline Audit tool from on-demand scanning into continuous enforcement: EventBridge catches risky changes (open security groups, public S3 buckets) in real time and Lambda remediates them automatically. First deploy looked correct but silently did nothing — CloudTrail's always-on Event History doesn't feed EventBridge, only an actual Trail resource does. Verified both directions: in-scope resources get auto-remediated, and IAM denies remediation on anything out of scope, confirmed by testing an untagged security group and finding the open rule still there.</p>
@@ -182,7 +196,7 @@
       </div>
 
       <div class="project-card fade-up">
-        <div class="project-number">07</div>
+        <div class="project-number">08</div>
         <div class="project-type">Compliance / Governance</div>
         <div class="project-name">FedRAMP/NIST Secure AWS Landing Zone</div>
         <p class="project-desc">A six-module Terraform landing zone (network, IAM, security, logging, config, budget) built around FedRAMP/NIST-style controls — CIS benchmark and NIST control mapping docs, four incident-response runbooks, example deny-policy SCPs, and a five-tool CI security pipeline (Checkov, tfsec, TFLint, Gitleaks, fmt/validate). The repo initially failed `terraform validate` outright — invalid HCL syntax across four modules — fixed alongside real hardening: MFA required on every privileged role's trust policy, TLS-only access enforced on the log bucket, and the log bucket's `force_destroy` defaulted to false so a routine `terraform destroy` can't silently wipe audit history. Statically validated in CI; not deployed.</p>
@@ -197,7 +211,7 @@
       </div>
 
       <div class="project-card fade-up">
-        <div class="project-number">08</div>
+        <div class="project-number">09</div>
         <div class="project-type">Incident Response / Networking</div>
         <div class="project-name">AWS 503 Incident Response Lab</div>
         <p class="project-desc">A self-directed lab reproducing a real production symptom — an ALB returning 503s on specific endpoints — behind a Cloudflare-proxied domain. Deliberately broke it four distinct ways and captured each one's real diagnostic signature: a deregistered target (503, zero capacity) versus a stopped-but-registered service (502, connection refused) versus a security group silently dropping the health-check port (504, timeout) versus an application-level bug that leaves the Target Group healthy while specific routes still 500. Built, diagnosed, and torn down in one session — verified clean via live AWS CLI checks afterward.</p>
@@ -212,7 +226,7 @@
       </div>
 
       <div class="project-card fade-up">
-        <div class="project-number">09</div>
+        <div class="project-number">10</div>
         <div class="project-type">Agent Infrastructure</div>
         <div class="project-name">AI Agent Governance Guardrail</div>
         <p class="project-desc">A Bedrock-hosted Claude agent decides which tools to call; every call is enforced by AWS IAM, not application code. Proved it with a real red-team test: a simulated prompt-injected instruction pushed the agent toward reading a restricted file and deleting a record it shouldn't touch — both denied by IAM, with an independent DynamoDB audit trail confirming the denial happened at the infrastructure layer, not because the model chose to behave.</p>
@@ -226,7 +240,7 @@
       </div>
 
       <div class="project-card fade-up">
-        <div class="project-number">10</div>
+        <div class="project-number">11</div>
         <div class="project-type">MLOps / Kubernetes</div>
         <div class="project-name">Local LLM Serving on Kubernetes</div>
         <p class="project-desc">The free, CPU-only substitute for a GPU/EKS MLOps pipeline: a small open model actually serving inference, an HPA scaling replicas 1-to-4 under real concurrent load, and Argo CD performing genuine GitOps sync from this repo. Caught and documented a real mistake along the way — an initial load test used kubectl port-forward, which silently pins to a single pod instead of load-balancing, so the "successful" scale-out wasn't actually being tested until the load generator was moved inside the cluster.</p>
@@ -241,7 +255,7 @@
       </div>
 
       <div class="project-card fade-up">
-        <div class="project-number">11</div>
+        <div class="project-number">12</div>
         <div class="project-type">Serverless / AI Infrastructure</div>
         <div class="project-name">AI API Gateway With Real Governance</div>
         <p class="project-desc">An API Gateway → Lambda → Bedrock pipeline where every caller has a real rate limit and a real cost cap, both enforced before the model is ever invoked — a denied request costs nothing. Rate limiting uses an atomic DynamoDB conditional write so concurrent requests can't race past the limit; the cost cap checks a running per-caller balance built from Bedrock's own real token usage. Verified live: a 5/minute cap correctly returned 429 on request six, and a lowered cost cap correctly returned 402 once a caller's real spend crossed it.</p>
@@ -255,7 +269,7 @@
       </div>
 
       <div class="project-card fade-up">
-        <div class="project-number">12</div>
+        <div class="project-number">13</div>
         <div class="project-type">Firmware / CI/CD</div>
         <div class="project-name">Firmware CI/CD & Release Infrastructure</div>
         <p class="project-desc">A real Jenkins pipeline that builds TianoCore EDK2's OVMF — the actual open-source UEFI firmware real cloud providers use as VM BIOS — and boot-validates it in QEMU before archiving the result. Getting from a clean clone to a booting firmware image meant finding and fixing six real bugs, including a deprecated toolchain tag every online tutorial still references, and a routine-looking Windows CRLF git warning that turned out to corrupt a script's shebang and break a real Jenkins build. Also includes a real release-branching workflow with a genuine merge conflict, resolved deliberately rather than by picking a side.</p>
@@ -266,20 +280,6 @@
           <span class="project-tag">Git</span>
         </div>
         <a href="https://github.com/gkoufie1/firmware-cicd-release-infra" class="project-link" target="_blank" rel="noopener noreferrer">View Project &rarr;</a>
-      </div>
-
-      <div class="project-card fade-up">
-        <div class="project-number">13</div>
-        <div class="project-type">Azure / API Platform</div>
-        <div class="project-name">Enterprise API Onboarding Platform (Azure API Management)</div>
-        <p class="project-desc">A shared Azure API Management platform where onboarding a new API never touches the gateway itself — separate Terraform state for the platform (owns the one APIM instance) versus per-API onboarding (reads platform outputs, can't create, replace, or delete APIM). Verified the real Entra ID auth chain end-to-end: real app registrations, real client-credentials tokens, and a call through the live gateway confirmed by checking for the backend's own CORS headers in the response — proof the request actually reached it, not just a synthetic 200 from the gateway. Applied, tested, and fully torn down the same session.</p>
-        <div class="project-tags">
-          <span class="project-tag">Azure API Management</span>
-          <span class="project-tag">Terraform</span>
-          <span class="project-tag">Entra ID</span>
-          <span class="project-tag">GitHub OIDC</span>
-        </div>
-        <a href="https://github.com/gkoufie1/cloud-api-workflow" class="project-link" target="_blank" rel="noopener noreferrer">View Project &rarr;</a>
       </div>
 
     </div>
