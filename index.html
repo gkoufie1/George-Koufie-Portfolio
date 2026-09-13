@@ -84,7 +84,7 @@
       <div class="stat-label">Certifications</div>
     </div>
     <div class="stat">
-      <div class="stat-num">12</div>
+      <div class="stat-num">13</div>
       <div class="stat-label">Projects Built</div>
     </div>
   </div>
@@ -266,6 +266,20 @@
           <span class="project-tag">Git</span>
         </div>
         <a href="https://github.com/gkoufie1/firmware-cicd-release-infra" class="project-link" target="_blank" rel="noopener noreferrer">View Project &rarr;</a>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-number">13</div>
+        <div class="project-type">Azure / API Platform</div>
+        <div class="project-name">Enterprise API Onboarding Platform (Azure API Management)</div>
+        <p class="project-desc">A shared Azure API Management platform where onboarding a new API never touches the gateway itself — separate Terraform state for the platform (owns the one APIM instance) versus per-API onboarding (reads platform outputs, can't create, replace, or delete APIM). Verified the real Entra ID auth chain end-to-end: real app registrations, real client-credentials tokens, and a call through the live gateway confirmed by checking for the backend's own CORS headers in the response — proof the request actually reached it, not just a synthetic 200 from the gateway. Applied, tested, and fully torn down the same session.</p>
+        <div class="project-tags">
+          <span class="project-tag">Azure API Management</span>
+          <span class="project-tag">Terraform</span>
+          <span class="project-tag">Entra ID</span>
+          <span class="project-tag">GitHub OIDC</span>
+        </div>
+        <a href="https://github.com/gkoufie1/cloud-api-workflow" class="project-link" target="_blank" rel="noopener noreferrer">View Project &rarr;</a>
       </div>
 
     </div>
