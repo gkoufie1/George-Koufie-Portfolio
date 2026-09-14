@@ -98,7 +98,7 @@ cd george-koufie-portfolio
 docker build -t george-koufie-portfolio .
 
 # Run locally
-docker run -d -p 8080:80 --name portfolio george-koufie-portfolio
+docker run -d -p 8080:8080 --name portfolio george-koufie-portfolio
 
 # Open in browser
 open http://localhost:8080
