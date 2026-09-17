@@ -573,6 +573,8 @@ section { position: relative; z-index: 1; }
 .credly-badge {
   display: flex;
   justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 1.5rem;
 }
 
 .resume-download {
