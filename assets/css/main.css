@@ -570,6 +570,11 @@ section { position: relative; z-index: 1; }
   font-weight: 300;
 }
 
+.credly-badge {
+  display: flex;
+  justify-content: flex-start;
+}
+
 .resume-download {
   margin-top: 3rem;
   display: flex;
